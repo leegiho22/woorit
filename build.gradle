@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //개발에 필요한 라이브러리(https://mvnrepository.com/ 에서 자료조회)
+    //JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //타임리프
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    //스프링부트 웹
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //롬복(DTO, ENTITY의 메소드로 자동생성)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    //스프링부트 개발툴
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    //데이터베이스
+    runtimeOnly 'com.h2database:h2'
+    //runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    //톰캣서버
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    //테스트에 필요한 라이브러리
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //테스트에 롬복을 사용하도록 수동으로 설정
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    //mapper(맵핑. DTO- Entity 사이의 변환 작업) 수동으로 설정
+    implementation "org.modelmapper:modelmapper:3.1.1"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
